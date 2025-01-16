@@ -23,14 +23,20 @@ const SpeechToText = () => {
 
 		recognition.onresult = (event) => {
 			let interimTranscript = "";
-			for (let i = event.resultIndex; i < event.results.length; i++) {
-				const transcript = event.results[i][0].transcript;
-				if (event.results[i].isFinal) {
-					setText((prevText) => prevText + transcript + " ");
-				} else {
-					interimTranscript += transcript;
-				}
-			}
+			const color = event.results[0][0].transcript;
+			setText(color);
+			// for (let i = event.resultIndex; i < event.results.length; i++) {
+			// 	const transcript = event.results[i][0].transcript;
+			// 	if (event.results[i].isFinal) {
+			// 		setText((prevText) => prevText + transcript + " ");
+			// 	} else {
+			// 		interimTranscript += transcript;
+			// 	}
+			// }
+		};
+
+		recognition.onnomatch = (event) => {
+			console.log("I didn't recognize that color.");
 		};
 
 		recognition.onerror = (event) => {
